@@ -1,0 +1,12 @@
+# Worker application dependencies.
+#
+# FastVideo itself (with its pinned torch 2.12.0 + transformers + accelerate +
+# diffusers) is installed editable from the FastVideo git repo inside the
+# Dockerfile, which also builds fastvideo-kernel for sm_120. Do not pip-install
+# `fastvideo` from PyPI here — the FP4 attention kernels must be built for the
+# target GPU (see worker/Dockerfile).
+
+fastapi>=0.115
+uvicorn[standard]>=0.30
+httpx>=0.27
+pillow>=10.4
