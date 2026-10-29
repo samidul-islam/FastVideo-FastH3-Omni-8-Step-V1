@@ -16,11 +16,11 @@
 # =============================================================================
 
 ARG CUDA_VERSION=13.0.0
-ARG PYTHON_VERSION=3.12
 FROM nvidia/cuda:${CUDA_VERSION}-cudnn-devel-ubuntu22.04
 
 # sm_120 = RTX PRO 6000 Blackwell. Build machines have no GPU, so
 # fastvideo-kernel is compiled for this arch list instead of probing.
+ARG PYTHON_VERSION=3.12
 ARG TORCH_CUDA_ARCH_LIST=12.0a
 # FastVideo ref to install (git branch/tag). main == v0.2.1 as of Oct 2026.
 ARG FASTVIDEO_REF=main
@@ -58,6 +58,10 @@ WORKDIR /FastVideo
 RUN git clone --depth 1 --branch ${FASTVIDEO_REF} \
         https://github.com/hao-ai-lab/FastVideo.git . \
     && echo "# placeholder" > README.md
+
+# bash shell: the RUN steps use `source`, which /bin/sh (dash) lacks.
+# Placed here (not earlier) so the apt/uv/clone layers stay Docker-cached.
+SHELL ["/bin/bash", "-c"]
 RUN source $HOME/.local/bin/env \
     && uv venv --python ${PYTHON_VERSION} --seed /opt/venv \
     && source /opt/venv/bin/activate \
