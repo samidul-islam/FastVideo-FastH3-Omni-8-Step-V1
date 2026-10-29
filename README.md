@@ -33,14 +33,33 @@ worker/            FastAPI GPU worker (Docker)
   test_input.json  sample /run payload (sync test mode)
 docs/
   GUIDE-PHASE1.md  build / push / Vast.ai / test step-by-step (Bangla)
+  GUIDE-PHASE2.md  Laravel setup / cPanel hosting / MySQL / migrations (Bangla)
   ui-reference/    product UI design references (match in Phase 5/7)
+
+backend-src/        Laravel 11 app source (copy into `composer create-project laravel/laravel` output)
+  composer.json    php ^8.4, laravel ^11, jwt-auth ^2.1, guzzle ^7.9
+  app/Models/      User, Video, Payment, Setting
+  database/migrations/   users, videos, payments, settings (replaces default users migration)
+  database/seeders/      default settings seed
+  routes/api.php   /api/health stub (Phase 3 expands)
+  bootstrap/app.php   api routing enabled
+  .env.example     cPanel MySQL + worker/JWT/Gemini/bKash placeholders
 ```
 
 ## Phase status
 
-- [x] Phase 1 — GPU worker (this commit): code complete, guide written.
-      Build + Vast.ai deploy + smoke test = next (user-run, see GUIDE-PHASE1.md).
-- [ ] Phase 2 — Laravel 11 cPanel + migrations (users/videos/payments/settings)
+- [x] Phase 1 — GPU worker: code complete + guide. Build/push/Vast.ai = user-run.
+- [x] Phase 2 — Laravel 11 backend source (`backend-src/`): models, migrations
+      (users/videos/payments/settings), seeder, api stub, composer.json, .env.example.
+      Local setup + cPanel deploy = user-run, see docs/GUIDE-PHASE2.md.
+- [ ] Phase 3 — Laravel API (auth, generate, status, callback, payment, history)
+- [ ] Phase 4 — Admin dashboard (Blade)
+- [ ] Phase 5 — User frontend (Blade, design per docs/ui-reference)
+- [ ] Phase 6 — Auto-delete scheduled command
+- [ ] Phase 7 — Flutter app
+- [ ] Phase 8 — bKash/Nagad
+- [ ] Phase 9 — Launch
+- [ ] Phase 10+ — new models (image gen, editing, series, upscaling, voice cloning)
 - [ ] Phase 3 — Laravel API (auth, generate, status, callback, payment, history)
 - [ ] Phase 4 — Admin dashboard (Blade)
 - [ ] Phase 5 — User frontend (Blade, design per docs/ui-reference)

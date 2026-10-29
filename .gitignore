@@ -1,0 +1,16 @@
+# Laravel / PHP
+/vendor/
+/.env
+/.env.backup
+/.phpunit.result.cache
+/storage/*.key
+/storage/pail
+/bootstrap/cache/*.php
+/bootstrap/cache/*.json
+/bootstrap/cache/*.lock
+
+# JS / misc
+/node_modules/
+/.vite/
+.DS_Store
+Thumbs.db
